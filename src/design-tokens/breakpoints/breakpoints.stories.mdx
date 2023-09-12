@@ -1,0 +1,19 @@
+import {Meta, Story, Canvas} from "@storybook/addon-docs";
+import { breakpoints } from "./breakpoints";
+
+<Meta title="Design Tokens/Breakpoints" />
+
+Breakpoints
+======================
+In web development, breakpoints are specific screen sizes where the layout and design of a website are optimized for different devices. 
+They are used in responsive web design to ensure that the website adapts and displays correctly on various screens, like desktops, tablets, 
+and mobile phones. Breakpoints allow developers to make adjustments to the design and layout depending on the screen size, ensuring an 
+optimal user experience across devices.
+
+Our breakpoints
+---------------
+<ul>
+{breakpoints.map((bp) => (
+  <li>{bp}</li>
+))}
+</ul>
