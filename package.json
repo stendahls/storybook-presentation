@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_1472ff1da1af7ef"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,7 @@
     "@storybook/react-vite": "^7.3.2",
     "@storybook/testing-library": "^0.2.0",
     "@types/facepaint": "^1.2.2",
+    "chromatic": "^7.1.0",
     "csstype": "^3.1.2",
     "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
@@ -33,5 +35,7 @@
     "@emotion/react": "^11.11.1",
     "classnames": "^2.3.2",
     "facepaint": "^1.2.1"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "presentation@1.0.0"
 }

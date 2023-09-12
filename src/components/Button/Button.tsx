@@ -32,7 +32,7 @@ ButtonProps
         alignItems: "center",
       }]}
     >
-        <Typography color="white" as="span">{text}</Typography>
+        <Typography variant="SmallHeading" color="white" as="span">{text}</Typography>
     </button>
   );
 });
