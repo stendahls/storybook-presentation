@@ -1,5 +1,6 @@
 import { Global } from "@emotion/react";
 import { ReactNode } from "react";
+import colors from "./design-tokens/colors/colors";
 
 export type AppProps = {
   children: ReactNode | ReactNode[];
@@ -8,14 +9,21 @@ export type AppProps = {
 const App = ({
   children,
 }: AppProps) => (
-  <div>
+  <>
     <Global styles={{
+      ":root": {
+        ...Object.fromEntries(
+          Object.entries(colors).map(([name, rgb]) => {
+            return [`--color-${name}`, `rgb(${rgb.join(",")})`];
+          }),
+        ),
+      },
       "*, *:before, *:after": {
         boxSizing: "border-box",
       }
     }} />
     {children}
-  </div>
+  </>
 );
 
 export default App;

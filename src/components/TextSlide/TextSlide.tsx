@@ -4,6 +4,7 @@ import Typography from "../Typography/Typography";
 export type TextSlideProps = {
   type: "text";
   title: string;
+  content?: string;
 };
 
 const TextSlide = ({

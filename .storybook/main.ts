@@ -1,4 +1,5 @@
-/** @type { import('@storybook/react-vite').StorybookConfig } */
+import { StorybookConfig } from "@storybook/react-vite";
+
 const config = {
   stories: [
     "../src/**/*.mdx",
@@ -11,6 +12,10 @@ const config = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     "@storybook/addon-storysource",
+    "storybook-addon-react-router-v6",
+    "@storybook/addon-a11y",
+    "@storybook/addon-storysource",
+    "storybook-addon-rtl",
   ],
   framework: {
     name: "@storybook/react-vite",
@@ -19,6 +24,6 @@ const config = {
   docs: {
     autodocs: "tag",
   },
-};
+} satisfies StorybookConfig;
 
 export default config;

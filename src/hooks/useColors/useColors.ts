@@ -25,6 +25,6 @@ export const useColors = ({ color, colorAlpha, backgroundColor, backgroundColorA
     backgroundColor: `rgba(${colors[backgroundColor].join(",")},${backgroundColorAlpha ?? 1})`
   }),
   ...(background === "gradient" && {
-    background: "linear-gradient(126deg, rgba(21,34,57,1) 0%, rgba(49,86,151,1) 100%);"
+    background: `linear-gradient(126deg, rgb(150 183 199) 0%, rgb(60 106 150) 40%, rgb(38 76 110) 100%);`
   }),
 });

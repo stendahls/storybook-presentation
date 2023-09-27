@@ -7,34 +7,41 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_1472ff1da1af7ef"
+    "chromatic": "npx chromatic"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@storybook/addon-a11y": "^7.4.5",
     "@storybook/addon-essentials": "^7.3.2",
     "@storybook/addon-interactions": "^7.3.2",
     "@storybook/addon-links": "^7.3.2",
     "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/addon-storysource": "^7.3.2",
+    "@storybook/addon-storysource": "^7.4.5",
     "@storybook/blocks": "^7.3.2",
     "@storybook/react": "^7.3.2",
     "@storybook/react-vite": "^7.3.2",
     "@storybook/testing-library": "^0.2.0",
     "@types/facepaint": "^1.2.2",
+    "@types/react-syntax-highlighter": "^15.5.7",
     "chromatic": "^7.1.0",
     "csstype": "^3.1.2",
     "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.3.2"
+    "storybook": "^7.3.2",
+    "storybook-addon-react-router-v6": "^2.0.7",
+    "storybook-addon-rtl": "^0.5.0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "classnames": "^2.3.2",
-    "facepaint": "^1.2.1"
+    "facepaint": "^1.2.1",
+    "react-markdown": "^8.0.7",
+    "react-router-dom": "^6.15.0",
+    "react-syntax-highlighter": "^15.5.0"
   },
   "readme": "ERROR: No README data found!",
   "_id": "presentation@1.0.0"

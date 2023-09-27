@@ -13,8 +13,8 @@ export const Example: StoryObj<typeof Box> = {
     backgroundColor: "primary",
     color: "white",
     br: 4,
-    px: 30,
-    py: 20,
+    px: 40,
+    py: 30,
   },
   render: (args) => <Box {...args}><Typography>I'm a box!</Typography></Box>
 }; 

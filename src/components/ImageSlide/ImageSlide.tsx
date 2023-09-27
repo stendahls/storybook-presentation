@@ -1,6 +1,12 @@
 
+export type ImageSlideProps = {
+  type: "image",
+  imageUrl: string;
+};
 
-const ImageSlide = () => {
+const ImageSlide = ({
+  imageUrl,
+}: ImageSlideProps) => {
   return (<></>);
 }
 

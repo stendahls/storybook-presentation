@@ -1,12 +1,16 @@
+import { ImageSlideProps } from "../ImageSlide/ImageSlide";
 import type { IntroSlideProps } from "../IntroSlide/IntroSlide";
 import IntroSlide from "../IntroSlide/IntroSlide";
+import { ItemDetailsSlideProps } from "../ItemDetailsSlide/ItemDetailsSlide";
 import SplitSlide, { SplitSlideProps } from "../SplitSlide/SplitSlide";
 import TextSlide, { TextSlideProps } from "../TextSlide/TextSlide";
 
 export type Slide = 
   | IntroSlideProps
   | SplitSlideProps
-  | TextSlideProps;
+  | TextSlideProps
+  | ImageSlideProps
+  | ItemDetailsSlideProps;
 
 export type SlideRendererProps = {
   slide: Slide;

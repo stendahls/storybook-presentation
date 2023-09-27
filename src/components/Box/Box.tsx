@@ -1,4 +1,4 @@
-import { jsx } from "@emotion/react";
+import { Interpolation, Theme, jsx } from "@emotion/react";
 import { ReactNode } from "react";
 import useSpacing, { SpacingProps } from "../../hooks/useSpacing/useSpacing";
 import { ColorProps, useColors } from "../../hooks/useColors/useColors";
@@ -15,22 +15,23 @@ export type BoxProps =
   & {
     children?: ReactNode | ReactNode[];
     as?: "div" | "section" | "main" | "span" | "article" | "hgroup";
+    sx?: Interpolation<Theme>;
   };
 
 const Box = ({
   display = "flex",
   as = "div",
-  flexDirection = "column",
   children,
+  sx,
   ...rest
 }: BoxProps) => {
   const colors = useColors(rest);
-  const flexSettings = useFlex({ display, flexDirection, ...rest });
+  const flexSettings = useFlex({ display, ...rest });
   const spacing = useSpacing(rest);
   const borderRadius = useBorderRadius(rest);
   const size = useSize(rest);
   return jsx(as, {
-    css: [colors, flexSettings, spacing, borderRadius, size],
+    css: [colors, flexSettings, spacing, borderRadius, size, sx],
     children
   });
 };
