@@ -20,22 +20,28 @@ export type TypographyProps =
 
 const variants: Record<TypographyVariant, CSSObject> = {
   "BigHeading": {
+    fontFamily: "'Open Sans', sans-serif",
     fontWeight: 700,
     fontSize: "3rem", 
   },
   "MediumHeading": {
+    fontFamily: "'Open Sans', sans-serif",
     fontWeight: 400,
     fontSize: "2.5rem",
   },
   "SmallHeading": {
+    fontFamily: "'Open Sans', sans-serif",
     fontWeight: 700,
     fontSize: "2rem",
   },
   "Body": {
+    fontFamily: "'Onest', sans-serif",
     fontWeight: 400,
-    fontSize: "1.8rem",
+    fontSize: "1.5rem",
+    lineHeight: 1.5,
   },
   "Button": {
+    fontFamily: "'Onest', sans-serif",
     fontSize: "1rem",
   }
 };
@@ -56,7 +62,7 @@ const Typography = ({
       spacing,
       sizes,
       variants[variant], {
-        fontFamily: "'Open Sans', sans-serif",
+        
         margin: 0,
         ...(textShadow && {
           textShadow: "1px 2px 4px rgba(0,0,0,.4)",

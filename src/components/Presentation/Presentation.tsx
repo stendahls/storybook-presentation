@@ -6,10 +6,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export type PresentationProps = {
   slides: Slide[];
+  allSlides?: boolean;
 };
 
 const Presentation = ({
   slides,
+  allSlides = false,
 }: PresentationProps) => {
   const { slideNumber } = useParams();
   const navigate = useNavigate();
@@ -27,7 +29,10 @@ const Presentation = ({
     <Box as="main" backgroundColor="black" width="100vw" height="100vh" justifyContent="center" alignItems="center">
       <Suspense>
         <Box width="100%" aspectRatio={16/9}>
-          {slides[slideIndex.current] && (
+          {allSlides && slides.map((slide, index) => (
+            <SlideRenderer key={index} slide={slide} />
+          ))}
+          {!allSlides && slides[slideIndex.current] && (
             <SlideRenderer slide={slides[slideIndex.current]} />
           )}
         </Box>

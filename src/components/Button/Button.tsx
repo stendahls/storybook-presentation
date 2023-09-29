@@ -2,7 +2,7 @@ import { ReactNode, forwardRef } from "react";
 import Typography from "../Typography/Typography";
 import { BackgroundColorProps, useColors } from "../../hooks/useColors/useColors";
 import Box from "../Box/Box";
-import colors, { colorsRGB } from "../../design-tokens/colors/colors";
+import colors from "../../design-tokens/colors/colors";
 import { CSSObject } from "@emotion/react";
 
 export type ButtonVariant = "primary" | "secondary" | "grey100";

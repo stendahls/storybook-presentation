@@ -10,4 +10,6 @@ const colors = {
 } as const;
 
 export type ColorName = keyof typeof colors;
+export const toRGB = (color: ColorName) => `rgb(${colors[color].join(",")})`;
+
 export default colors;

@@ -1,6 +1,7 @@
 import Box from "../Box/Box";
 import DocsLink from "../DocsLink/DocsLink";
 import MarkDown from "../Markdown/Markdown";
+import StorybookIcon from "../StorybookIcon/StorybookIcon";
 import Typography from "../Typography/Typography";
 
 export type SplitSlideProps = {
@@ -9,6 +10,7 @@ export type SplitSlideProps = {
   subTitle?: string;
   content?: string;
   docsLink?: string;
+  docsType?: "storybook" | "chromatic";
 };
 
 const SplitSlide = ({
@@ -16,9 +18,13 @@ const SplitSlide = ({
   subTitle,
   content,
   docsLink,
+  docsType,
 }: SplitSlideProps) => (
   <Box size="100%" flexDirection="row">
     <Box background="gradient" width="35%" flexGrow={0} flexShrink={0} alignItems="center" justifyContent="center" flexDirection="column">
+      <Box sx={{ border: "solid 3px var(--color-black)", boxShadow: "5px 5px var(--color-black)"}} size={30} br={10} backgroundColor="white" p={5}>
+        <StorybookIcon width="100%" />
+      </Box>
       <Box sx={{ textAlign: "end" }} as="hgroup" color="white" px={20} display="flex" flexDirection="column" alignItems="flex-end">
         <Typography as="h1" variant="BigHeading" textShadow>{title}</Typography>
         {subTitle && (
@@ -27,7 +33,7 @@ const SplitSlide = ({
       </Box>
       {docsLink && (
         <Box mt={10}>
-          <DocsLink url={docsLink} />
+          <DocsLink type={docsType} url={docsLink} />
         </Box>
       )}
     </Box>
