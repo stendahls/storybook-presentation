@@ -3,15 +3,14 @@ import { useKeyDown } from "../../hooks/useKeyDown/useKeyDown";
 import Box from "../Box/Box";
 import SlideRenderer, { Slide } from "./SlideRenderer";
 import { useNavigate, useParams } from "react-router-dom";
+import StendahlsIO from "../Icons/StendahlsIO";
 
 export type PresentationProps = {
   slides: Slide[];
-  allSlides?: boolean;
 };
 
 const Presentation = ({
   slides,
-  allSlides = false,
 }: PresentationProps) => {
   const { slideNumber } = useParams();
   const navigate = useNavigate();
@@ -28,12 +27,16 @@ const Presentation = ({
   return (
     <Box as="main" backgroundColor="black" width="100vw" height="100vh" justifyContent="center" alignItems="center">
       <Suspense>
-        <Box width="100%" aspectRatio={16/9}>
-          {allSlides && slides.map((slide, index) => (
-            <SlideRenderer key={index} slide={slide} />
-          ))}
-          {!allSlides && slides[slideIndex.current] && (
-            <SlideRenderer slide={slides[slideIndex.current]} />
+        <Box sx={{ position: "relative", maxHeight: "100vh" }} width="100%" aspectRatio={16/9}>
+          {slides[slideIndex.current] && (
+            <>
+              <SlideRenderer slide={slides[slideIndex.current]} />
+              <StendahlsIO 
+                sx={{ position: "absolute", right: 20, bottom: 20 }}
+                width={70}
+                color={slides[slideIndex.current].type === "intro" ? "white" : "black"}
+              />
+            </>
           )}
         </Box>
       </Suspense>

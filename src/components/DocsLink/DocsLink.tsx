@@ -1,5 +1,4 @@
-import { useCallback } from "react";
-import Button from "../Button/Button";
+import { ButtonLink } from "../Button/Button";
 import ChromaticIcon from "../ChromaticIcon/ChromaticIcon";
 import StorybookIcon from "../StorybookIcon/StorybookIcon";
 
@@ -11,17 +10,13 @@ export type DocsLinkProps = {
 const DocsLink = ({
   type = "storybook",
   url,
-}: DocsLinkProps) => {
-  const onClick = useCallback(() => {
-    window.open(url);
-  }, [url]);
-  return (
-    <Button 
-      onClick={onClick}
-      text={"Documentation"} 
-      startIcon={type === "storybook" ? <StorybookIcon /> : <ChromaticIcon />} 
-    />
-  );
-};
+}: DocsLinkProps) => (
+  <ButtonLink 
+    text={"Documentation"} 
+    target="_blank"
+    href={url}
+    startIcon={type === "storybook" ? <StorybookIcon /> : <ChromaticIcon />} 
+  />
+);
 
 export default DocsLink;

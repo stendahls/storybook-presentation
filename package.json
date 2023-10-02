@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
+    "test-storybook": "test-storybook",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic"
   },
@@ -20,8 +21,10 @@
     "@storybook/addon-onboarding": "^1.0.8",
     "@storybook/addon-storysource": "^7.4.5",
     "@storybook/blocks": "^7.4.5",
+    "@storybook/jest": "^0.2.2",
     "@storybook/react": "^7.4.5",
     "@storybook/react-vite": "^7.4.5",
+    "@storybook/test-runner": "^0.13.0",
     "@storybook/testing-library": "^0.2.1",
     "@types/facepaint": "^1.2.2",
     "@types/react-syntax-highlighter": "^15.5.7",
@@ -44,5 +47,8 @@
     "react-syntax-highlighter": "^15.5.0"
   },
   "readme": "ERROR: No README data found!",
-  "_id": "presentation@1.0.0"
+  "_id": "presentation@1.0.0",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }

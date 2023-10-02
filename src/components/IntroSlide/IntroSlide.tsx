@@ -11,7 +11,7 @@ export type IntroSlideProps = {
 };
 
 const IntroSlide = ({ title, subTitle, imageSrc }: IntroSlideProps) => (
-  <Box as="article" width="100%" aspectRatio={16 / 9} background="gradient">
+  <Box as="article" width="100%" aspectRatio={16 / 9} backgroundColor="energetic">
     <Box
       display="flex"
       flexDirection="row"
@@ -31,11 +31,11 @@ const IntroSlide = ({ title, subTitle, imageSrc }: IntroSlideProps) => (
         justifyContent="space-between"
         flexGrow={1}
       >
-        <Typography as="h1" variant="BigHeading" textShadow>
+        <Typography as="h1" variant="BigHeading">
           {title}
         </Typography>
         {subTitle && (
-          <Typography as="p" variant="MediumHeading" textShadow>
+          <Typography as="p" variant="MediumHeading">
             {subTitle}
           </Typography>
         )}

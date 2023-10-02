@@ -21,8 +21,8 @@ const data = [
 #### Doing projects for:
   - Volvo, Husqvarna, Volvo Cars, ICA, Absolut…
 
-#### Last 3 years spent:
-  - React, Typescript, Storybook for Husqvarna
+#### Last 3 years:
+  - React, Typescript and Storybook for Husqvarna
 `,
   },
   {
@@ -32,12 +32,15 @@ const data = [
     content: `
 ### Session 1
 - What is and when do you want to use Storybook?
-- The basics; Installation, stories and addons.
+- The basics; Installation and writing stories.
 - Args and Controls.
+- Decorators
 
 ### Session 2
 - Addons & Integrations
+- Play function
 - Testing Components.
+- Storybook Composition
 - Chromatic
 
 ### Session 3
@@ -89,7 +92,8 @@ Together with bundlers:
     content: `
   1. **Big** projects with many developers.
   2. Component Library Projects.
-  3. Situation where UI components is delivered to backend or other teams.
+  3. Design System implementation.
+  3. All type of situations where UI components is delivered to backend or other teams.
 `
   },
   {
@@ -99,7 +103,7 @@ Together with bundlers:
 - Slight learning curve, mainly getting into the mindset.
 - Earlier versions was a bit unstable.
 - Additional thing to maintain; the stories and their data
-- Documenting "non components" is hard, with no standard. 
+- Documenting "non components" is hard, with no standard way.
 `
   },
   {
@@ -109,13 +113,25 @@ Together with bundlers:
 ### This is Storybook.
 I built this presentation as a modular UI using Storybook.
 
-I'm terrible at Power Point, so why not build the presentation as a web app
+I'm terrible at Power Point or Pages, so why not build the presentation as a web app
 and test some new tech at the same time.
 
 [Let's look briefly how it looks](http://localhost:6006/)
 
 We'll look at the source code later.
 [source code](https://github.com/ullmark/storybook-presentation)
+`
+  },
+  {
+    type: "split",
+    title: "Other examples",
+    content: `
+### There are obviously better examples.
+These are two examples (amongst others) that Storybook themself promote that can 
+be inspirational on what you can do.
+
+  - [Grainger](https://gds.grainger.com/?path=/story/welcome--page)
+  - [Oniru](https://design-system.atoka.io/?path=/story/introduction-welcome--page)
 `
   },
   {
@@ -162,30 +178,112 @@ export const Example: StoryObj<typeof Button> = {};
   {
     type: "split",
     title: "Writing Stories",
-    subTitle: "More advanced: CSF",
-    docsLink: "https://storybook.js.org/docs/react/writing-stories/introduction",
+    subTitle: "Decorators", 
     content: `
-~~~~tsx
-import { Meta, StoryObj } from "@storybook/react";
-import Button from "./Button";
+Decorators in Storybook allow you to wrap components with additional functionality, such as adding props or altering behavior.
+~~~ts
+import type { Decorator } from "@storybook/react";
+import App from "../App";
 
-// the meta describes details about story rendering 
-// and placement.
+const withApp: Decorator = (Story) => (
+  <App>
+    <Story />
+  </App>
+);
+
+export default withApp;
+~~~
+`
+  },
+  {
+    type: "split",
+    title: "Writing Stories",
+    subTitle: "Parameters",
+    content: `
+Parameters in Storybook are used to customize component behavior and appearance during development and testing, enhancing the development workflow.
+~~~~tsx
+// Button.stories.ts|tsx
+
+// Replace your-framework with the name of your framework
+import type { Meta, StoryObj } from '@storybook/your-framework';
+
+import { Button } from './Button';
+
 const meta: Meta<typeof Button> = {
   component: Button,
 };
 
 export default meta;
+type Story = StoryObj<typeof Button>;
 
-// The actual "story".
-export const Example: StoryObj<typeof Button> = {}; 
+export const Primary: Story = {
+  args: {
+    primary: true,
+    label: 'Button',
+  },
+  parameters: {
+    backgrounds: {
+      values: [
+        { name: 'red', value: '#f00' },
+        { name: 'green', value: '#0f0' },
+        { name: 'blue', value: '#00f' },
+      ],
+    },
+  },
+};
 ~~~~
 `
   },
   {
     type: "split",
     title: "Writing Stories",
-    subTitle: "The basics: MDX",
+    subTitle: "More advanced: CSF",
+    docsLink: "http://localhost:6006/?path=/story/components-button--counter",
+    content: `
+~~~~tsx
+import { Meta, StoryObj } from "@storybook/react";
+import Button from "./Button";
+import { useCallback, useState } from "react";
+
+const meta: Meta<typeof Button> = {
+  component: Button,
+  title: "Components/Button"
+};
+
+export default meta;
+
+const ButtonWithCounter = () => {
+  const [count, setCount] = useState(0);
+  const onClick = useCallback(() => {
+    setCount((count) => count + 1);
+  }, []);
+  return (
+    <div>
+      <p>{\`clicked: \${count}\`}</p>
+      <Button text="Click" onClick={onClick} />
+    </div>
+  );
+};
+
+export const Counter: StoryObj<typeof ButtonWithCounter> = {
+  name: "Counter Button",
+  decorators: [
+    (Story) => <article css={{ border: "solid 2px red", padding: 10 }}><Story /></article>, 
+    (Story) => <section css={{ border: "solid 2px blue", padding: 10 }}><Story /></section>,
+  ],
+  parameters: {
+    layout: "padded",
+  },
+  render: (args) => <ButtonWithCounter />,
+};
+~~~~
+`
+  },
+ 
+  {
+    type: "split",
+    title: "Writing Stories",
+    subTitle: "MDX",
     docsLink: "https://storybook.js.org/docs/react/writing-stories/introduction",
     content: `
 **MDX** is a file format that combines [Markdown](https://daringfireball.net/projects/markdown/syntax) and JSX. This might becoming
@@ -220,7 +318,7 @@ Our breakpoints
     subTitle: "Best of both; CSF & MDX",
     content: `
 One (new) possibility is to create a mdx-file next to the CSF-file with the same name,
-excluding ".stories". Storybook then automatically displays this as "Docs".
+excluding ".stories". Storybook then automatically picks it up and displays as "Docs".
 
 ![](/images/mdx-csf.jpg)
 `
@@ -300,35 +398,10 @@ const preview = {
 ~~~~
     `
   },
-  {
-    type: "split",
-    title: "Decorators",
-    content: `
-Decorators in Storybook allow you to wrap components with additional functionality, such as adding props or altering behavior.
-~~~ts
-import type { Decorator } from "@storybook/react";
-import App from "../App";
 
-const withApp: Decorator = (Story) => (
-  <App>
-    <Story />
-  </App>
-);
-
-export default withApp;
-~~~
-`
-  },
   {
     type: "split",
-    title: "Parameters",
-    content: `
-Parameters in Storybook are used to customize component behavior and appearance during development and testing, enhancing the development workflow.
-`
-  },
-  {
-    type: "split",
-    title: "HTML",
+    title: "Configure the HTML",
     content: `
 ### \`previewHead\` & \`preview-head.html\`
 Allows you to add elements rendered in the <head> of the preview panel of a story. Useful for ex. loading external
@@ -341,13 +414,45 @@ to work.
   },
   {
     type: "split",
+    content: `
+End of Session 1.
+=================
+If there is time, try setting up a Storybook installation and start a couple of stories.
+`,
+  },
+  {
+    type: "split",
+    content: `
+Session 2
+======================
+- Addons & Integrations
+- Play function
+- Testing Components.
+- Storybook Composition
+- Chromatic
+`
+  },
+  {
+    type: "split",
     title: "Addons/Integrations",
     docsLink: "https://storybook.js.org/integrations/",
     content: `
 - Storybook addons are extensions that enhance the functionality of the Storybook development environment.
 - They provide additional features like live editing, code snippets, and documentation generation.
 - Addons allow customization and extension of Storybook's UI and behavior.
-- They streamline the development process by providing useful tools and utilities for building and showcasing UI components.    
+- They streamline the development process by providing useful tools and utilities for building and showcasing UI components.
+
+![](/images/addons.jpg)
+`
+  },
+  {
+    type: "split",
+    title: "Addon: MSW",
+    subTitle: "Mocking XHR",
+    content: `
+### Pretty soon, your components need to fetch/post data.
+- You should try not adding external dependencies to your Storybook. Makes it much more error prone.
+- You want to be able simulate latency to test loading animations etc.
 `
   },
   {
@@ -359,8 +464,9 @@ to work.
   },
   {
     type: "split",
-    title: "Chromatic",
-    docsLink: "/",
+    title: "Addon: Chromatic",
+    subTitle: "Testing, reviewing, approval",
+    docsLink: "https://www.chromatic.com/",
     docsType: "chromatic",
     content: `
 Chromatic is a powerful application developed by the creators of Storybook. It serves as a comprehensive solution for identifying UI regressions and streamlining the stakeholder approval process.
@@ -369,9 +475,11 @@ Chromatic is a powerful application developed by the creators of Storybook. It s
 `
   },
   {
-    type: "text",
+    type: "split",
     title: "Any questions?",
     content: `
+Before starting to build with Storybook, anything unclear?
+Any other random question?
     `
   },
   {

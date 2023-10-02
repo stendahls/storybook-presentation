@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism'
-import colors, { toRGB } from "../../design-tokens/colors/colors";
+import colors, { toRGBA } from "../../design-tokens/colors/colors";
 
 export type MarkDownProps = {
   children: string;
@@ -17,7 +17,7 @@ const MarkDown = ({
       boxShadow: "5px 5px 5px rgba(0,0,0,.4)"
     },
     "a, a:visited": {
-      color: toRGB("secondary"),
+      color: toRGBA("energetic", .8),
     }
   }}
   components={{

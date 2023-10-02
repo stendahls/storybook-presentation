@@ -24,7 +24,6 @@ const Dialog = ({
         border: "none",
         background: "transparent",
         padding: 0,
-        width: "80%",
         "&::backdrop": {
           backgroundColor: "rgba(0,0,0,.6)",
         }
