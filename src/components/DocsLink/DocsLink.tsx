@@ -1,6 +1,6 @@
 import { ButtonLink } from "../Button/Button";
-import ChromaticIcon from "../ChromaticIcon/ChromaticIcon";
-import StorybookIcon from "../StorybookIcon/StorybookIcon";
+import ChromaticIcon from "../Icons/ChromaticIcon";
+import StorybookIcon from "../Icons/StorybookIcon";
 
 export type DocsLinkProps = {
   type?: "storybook" | "chromatic";

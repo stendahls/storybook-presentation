@@ -4,13 +4,7 @@ export const colors = {
   primary: [225, 207, 191],
   secondary: [39, 122, 202],
   tertiary: [102, 162, 216],
-  grey100: [233, 233, 233],
   text: [61, 61, 61],
-  white: [255, 255, 255],
-  black: [0, 0, 0],
-} as const;
-
-export const grayScale = {
   white: [255, 255, 255],
   black: [0, 0, 0],
   grey100: [244, 244, 244],

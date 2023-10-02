@@ -1,6 +1,6 @@
 import Box from "../Box/Box";
-import ChromaticIcon from "../ChromaticIcon/ChromaticIcon";
-import StorybookIcon from "../StorybookIcon/StorybookIcon";
+import ChromaticIcon from "../Icons/ChromaticIcon";
+import StorybookIcon from "../Icons/StorybookIcon";
 import Typography from "../Typography/Typography";
 
 export type IntroSlideProps = {

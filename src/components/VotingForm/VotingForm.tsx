@@ -3,16 +3,27 @@ import Box from "../Box/Box";
 import Button from "../Button/Button";
 import Dialog from "../Dialog/Dialog";
 import Typography from "../Typography/Typography";
+import Loader from "../Loader/Loader";
 
 const VotingForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   const [vote, setVote] = useState<"Yes" | "No" | undefined>(undefined);
   const [name, setName] = useState("");
 
   const onVote = useCallback((vote: "Yes" | "No") => {
-    setVote(vote);
-    setIsOpen(false);
+    setIsLoading(true);
+    fetch("/api/votes/create", {
+      method: "POST",
+    })
+      .then(() => {
+        setVote(vote);
+        setIsOpen(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
   }, []);
 
   const onOpenForm = useCallback(() => {
@@ -36,23 +47,30 @@ const VotingForm = () => {
         <Typography py={4}>{`${name} voted: ${vote}`}</Typography>
       )}
       <Dialog open={isOpen}>
-        <Box alignItems="center" flexDirection="column">
-          <Typography as="h3" variant="MediumHeading">Who are you?</Typography>
-          <Typography as="label">
-            Enter your name:
-            <input
-              ref={inputRef} 
-              css={{ marginLeft: 10 }}
-              type="text" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)}
-          />
-          </Typography>
-          <Box gap={4} pt={4}>
-            <Button text="Yes" variant="primary" onClick={() => onVote("Yes")} />
-            <Button text="No" variant="secondary" onClick={() => onVote("No")} />
+        {loading && (
+          <Box>
+            <Loader />
           </Box>
-        </Box>
+        )}
+        {!loading && (
+          <Box alignItems="center" flexDirection="column">
+            <Typography as="h3" variant="MediumHeading">Who are you?</Typography>
+            <Typography as="label">
+              Enter your name:
+              <input
+                ref={inputRef} 
+                css={{ marginLeft: 10 }}
+                type="text" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)}
+            />
+            </Typography>
+            <Box gap={4} pt={4}>
+              <Button text="Yes" variant="primary" onClick={() => onVote("Yes")} />
+              <Button text="No" variant="secondary" onClick={() => onVote("No")} />
+            </Box>
+          </Box>
+        )}
       </Dialog>
     </Box>
   )

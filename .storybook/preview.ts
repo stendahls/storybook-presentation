@@ -23,8 +23,8 @@ const preview = {
         date: /Date$/,
       },
     },
-    loaders: [mswLoader],
   },
+  loaders: [mswLoader],
 } satisfies Preview;
 
 export default preview;

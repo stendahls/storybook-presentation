@@ -11,5 +11,11 @@ const meta: Meta<typeof SplitSlide> = {
 export default meta;
 
 export const Example: StoryObj<typeof SplitSlide> = {
-
+  args: {
+    title: "Lorem ipsum",
+    subTitle: "Sit dolor",
+    content: `
+# Some Markdown.
+`
+  }
 }; 

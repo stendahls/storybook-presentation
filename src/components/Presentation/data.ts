@@ -19,7 +19,7 @@ const data = [
   - Every possible framework since…
 
 #### Doing projects for:
-  - Volvo, Husqvarna, Volvo Cars, ICA, Absolut…
+  - Volvo, Husqvarna, Volvo Cars, Polestar etc…
 
 #### Last 3 years:
   - React, Typescript and Storybook for Husqvarna
@@ -28,7 +28,6 @@ const data = [
   {
     type: "split",
     title: "What are we going to do?",
-    subTitle: "",
     content: `
 ### Session 1
 - What is and when do you want to use Storybook?
@@ -111,15 +110,11 @@ Together with bundlers:
     title: "You're looking at it.",
     content: `
 ### This is Storybook.
-I built this presentation as a modular UI using Storybook.
+I had this (bad?) idea, what better way to teach Storybook than
+building the presentation as a "modular" UI displayed in Storybook.
 
-I'm terrible at Power Point or Pages, so why not build the presentation as a web app
-and test some new tech at the same time.
-
-[Let's look briefly how it looks](http://localhost:6006/)
-
-We'll look at the source code later.
-[source code](https://github.com/ullmark/storybook-presentation)
+  - [Let's look briefly how it looks](http://localhost:6006/)
+  - [source code](https://github.com/stendahls/storybook-presentation)
 `
   },
   {
@@ -152,9 +147,11 @@ npm run storybook
   {
     type: "split",
     title: "Writing Stories",
-    subTitle: "The basics: CSF",
+    subTitle: "CSF",
     docsLink: "https://storybook.js.org/docs/react/writing-stories/introduction",
     content: `
+A story captures the rendered state of a UI component. Developers write multiple stories per component that describe all the “interesting” states a component can support.I
+
 **CSF** stands for **C**omponent **S**tory format. Storybook by default (can be configured) works by finding 
 all files that has the file ending \`*.stories.tsx\`. Below is the *bare minumum*:
 
@@ -178,21 +175,72 @@ export const Example: StoryObj<typeof Button> = {};
   {
     type: "split",
     title: "Writing Stories",
-    subTitle: "Decorators", 
+    subTitle: "Args",
+    docsLink: "https://storybook.js.org/docs/react/writing-stories/args",
     content: `
-Decorators in Storybook allow you to wrap components with additional functionality, such as adding props or altering behavior.
-~~~ts
-import type { Decorator } from "@storybook/react";
-import App from "../App";
+In Storybook, args refer to the arguments that can be passed to components while developing and testing. 
+They are automatically discovered by storybook if you use autodocs but you can create your own globally, 
+per component and per story.
 
-const withApp: Decorator = (Story) => (
-  <App>
-    <Story />
-  </App>
-);
+#### Globally
+~~~~tsx
+// preview.tsx
+// now all stories gets these arguments.
+const preview = {
+  args: {
+    someValue: true,
+    otherValue: 54,
+  }
+}
+~~~~
 
-export default withApp;
-~~~
+#### Per component
+Can be a bit tricky with typescript if you are adding new args which are 
+not props of the component. 
+
+~~~~tsx
+type ButtonStory = typeof Button & { someValue: string };
+const meta: Meta<ButtonStory> = {
+  component: Button,
+  args: {
+    someValue: "hello",
+    text: "Button text",
+  }
+};
+~~~~
+
+#### Per Story
+~~~~tsx
+export const Example: StoryObj<typeof Button> = {
+  args: {
+    text: "Click me",
+  },
+}; 
+~~~~
+`
+  },
+  {
+    type: "split",
+    title: "Writing Stories",
+    subTitle: "ArgTypes & Controls",
+    docsLink: "https://storybook.js.org/docs/react/essentials/controls",
+    content: `
+Argtypes in Storybook are used to define the types of props for components, ensuring that the correct data types are passed. They promote code clarity and help prevent bugs.
+
+~~~~tsx
+export const Example: StoryObj<typeof Button> = {
+  args: {
+    text: "Click me",
+  },
+  argTypes: {
+    text: {
+      description: "Please select a value",
+      options: ["Click me", "Do not click me"],
+      control: "select",
+    }
+  }
+}; 
+~~~~
 `
   },
   {
@@ -201,6 +249,7 @@ export default withApp;
     subTitle: "Parameters",
     content: `
 Parameters in Storybook are used to customize component behavior and appearance during development and testing, enhancing the development workflow.
+
 ~~~~tsx
 // Button.stories.ts|tsx
 
@@ -217,10 +266,6 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
-  args: {
-    primary: true,
-    label: 'Button',
-  },
   parameters: {
     backgrounds: {
       values: [
@@ -237,7 +282,27 @@ export const Primary: Story = {
   {
     type: "split",
     title: "Writing Stories",
-    subTitle: "More advanced: CSF",
+    subTitle: "Decorators", 
+    content: `
+Decorators in Storybook allow you to wrap components with additional functionality, such as adding props or altering behavior.
+~~~tsx
+import type { Decorator } from "@storybook/react";
+import App from "../App";
+
+const withApp: Decorator = (Story) => (
+  <App>
+    <Story />
+  </App>
+);
+
+export default withApp;
+~~~
+`
+  },
+  {
+    type: "split",
+    title: "Writing Stories",
+    subTitle: "More advanced CSF",
     docsLink: "http://localhost:6006/?path=/story/components-button--counter",
     content: `
 ~~~~tsx
@@ -425,11 +490,33 @@ If there is time, try setting up a Storybook installation and start a couple of 
     content: `
 Session 2
 ======================
-- Addons & Integrations
 - Play function
 - Testing Components.
+- Addons & Integrations
 - Storybook Composition
 - Chromatic
+`
+  },
+  {
+    type: "split",
+    title: "Component testing",
+    subTitle: "With Play-function",
+    docsLink: "https://storybook.js.org/docs/react/writing-stories/play-function",
+    content: `
+With the play function you can play entire scenarios like user filling out a form. You can
+then use assertion libraries.
+`
+  },
+  {
+    type: "split",
+    title: "Component testing",
+    subTitle: "With test-runner",
+    docsLink: "https://storybook.js.org/docs/react/writing-tests/test-runner",
+    content: `
+You can easily setup a test runner script that tests all your tests including 
+running play functions.
+
+![](/images/tests.jpg)
 `
   },
   {
@@ -449,17 +536,11 @@ Session 2
     type: "split",
     title: "Addon: MSW",
     subTitle: "Mocking XHR",
+    docsLink: "https://storybook.js.org/addons/msw-storybook-addon",
     content: `
 ### Pretty soon, your components need to fetch/post data.
 - You should try not adding external dependencies to your Storybook. Makes it much more error prone.
 - You want to be able simulate latency to test loading animations etc.
-`
-  },
-  {
-    type: "split",
-    title: "Component testing",
-    content: `
-
 `
   },
   {
@@ -484,7 +565,8 @@ Any other random question?
   },
   {
     type: "split",
-    title: "Exercise",
+    title: "Session 3 & 4",
+    subTitle: "Coding",
     content: `
 ![](/images/stone-valley.jpg)
 

@@ -11,5 +11,11 @@ const meta: Meta<typeof TextSlide> = {
 export default meta;
 
 export const Example: StoryObj<typeof TextSlide> = {
-
+  args: {
+    title: "A title",
+    leftContent: `
+    `,
+    rightContent: `
+    `
+  }
 }; 

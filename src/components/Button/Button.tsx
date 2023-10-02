@@ -4,21 +4,22 @@ import Box from "../Box/Box";
 import { toRGBA } from "../../design-tokens/colors/colors";
 import { CSSObject } from "@emotion/react";
 
-export type ButtonVariant = "primary" | "secondary" | "grey100";
+export type ButtonVariant = "energetic" | "secondary" | "grey100";
 
 export type ButtonProps = 
   & {
     /** The text of the button. */
     text: string;
+    /** The variant of the button, controls color. */
     variant?: ButtonVariant;
     startIcon?: ReactNode;
     onClick?: () => void;
   };
 
 const variants: Record<ButtonVariant, CSSObject> = {
-  "primary": {
+  "energetic": {
     color: toRGBA("white"),
-    backgroundColor: toRGBA("primary"),
+    backgroundColor: toRGBA("energetic"),
   },
   "secondary": {
     color: toRGBA("white"),
@@ -27,9 +28,6 @@ const variants: Record<ButtonVariant, CSSObject> = {
   "grey100": {
     color: toRGBA("black"),
     backgroundColor: toRGBA("grey100"),
-    "&:hover": {
-
-    }
   }
 };
 
@@ -42,6 +40,9 @@ const buttonStyle: CSSObject = {
   appearance: "none",
   border: "none",
   alignItems: "center",
+  "&:hover": {
+    boxShadow: `2px 2px 4px ${toRGBA("black", .2)}`,
+  }
 }
 
 const Button = forwardRef<

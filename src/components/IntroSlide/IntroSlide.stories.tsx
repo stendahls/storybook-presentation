@@ -12,8 +12,8 @@ export default meta;
 
 export const Example: StoryObj<typeof IntroSlide> = {
   args: {
-    title: "Building Modular UI:s",
-    subTitle: "with Storybook 7",
+    title: "Here's a title",
+    subTitle: "and a sub title",
     imageSrc: "/images/storybook-icon.svg",
   }
 }; 

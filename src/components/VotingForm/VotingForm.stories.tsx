@@ -1,10 +1,22 @@
+import { rest } from "msw";
 import { Meta, StoryObj } from "@storybook/react";
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within, waitFor } from '@storybook/testing-library';
 import { expect } from "@storybook/jest";
 import VotingForm from "./VotingForm";
 
 const meta: Meta<typeof VotingForm> = {
   component: VotingForm,
+  parameters: {
+    msw: {
+      handlers: [
+        rest.post("/api/votes/create", (req, res, ctx) => res(
+          ctx.delay(1000),
+          ctx.status(200),
+          ctx.body("Ok"),
+        )),
+      ]
+    }
+  }
 };
 
 export default meta;
@@ -34,6 +46,8 @@ export const SubmissionExample: StoryObj<typeof VotingForm> = {
       });
     });
 
-    expect(canvas.getByText("Markus voted: Yes")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(canvas.getByText("Markus voted: Yes")).toBeInTheDocument();
+    }, { timeout: 2000 });
   },
 }; 

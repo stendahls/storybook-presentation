@@ -4,7 +4,6 @@ import { useCallback, useState } from "react";
 
 const meta: Meta<typeof Button> = {
   component: Button,
-  title: "Components/Button"
 };
 
 export default meta;
@@ -13,6 +12,12 @@ export const Example: StoryObj<typeof Button> = {
   args: {
     text: "Click me",
   },
+  argTypes: {
+    variant: {
+      description: "Another description",
+      control: "select"
+    }
+  }
 }; 
 
 const ButtonWithCounter = () => {
